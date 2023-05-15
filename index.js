@@ -24,6 +24,7 @@ const db = mongoose.connection;
 const Schema = mongoose.Schema;
 const ObjectId = Schema.ObjectId;
 const UserSchema = new Schema({
+    id: ObjectId,
     name: String,
     age: Number
 });
@@ -57,6 +58,7 @@ app.post('/user', (req, res) => {
     // save to mongodb
     user.save().then(item => {
         console.log('saved to mongodb');
+        console.log(item);
         res.send('saved to mongodb');
     }).catch(err => {
         console.log(err);
@@ -66,15 +68,37 @@ app.post('/user', (req, res) => {
 
 app.get('/user', async (req, res) => {
     // get data from mongodb
-    const users = await User.find();
-    if(!users) {
-      res.send(users);
-    } else {
-        res.send('no user found');
-        }
+    const users = await User.find().exec();
+    console.log(users);
+    res.send(users);
+}
+);
 
-});
+// delete column from mongodb
+app.delete('/user/:id', async (req, res) => {
+    // delete data from mongodb
+    const user = await User.deleteOne({_id: req.params.id}).exec();
+    console.log(user);
+    res.send(user);
+}
+);
 
+// update column from mongodb
+app.put('/user/:id', async (req, res) => {
+    // update data from mongodb
+    const user = await User.updateOne({_id: req.params.id}, {
+        name: req.body.name,
+        age: req.body.age
+    }).exec();
+    console.log(user);
+    res.send(user);
+}
+);
+
+app.get('/anything', (req, res) => {
+    res.send('Anything!');
+}
+);
 // listen to port
 server.listen(port, host, () => {
     console.log(`Server running at ${url}`);
