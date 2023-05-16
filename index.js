@@ -8,6 +8,7 @@
 // express is a library to create web server
 // http is a library to create http server
 // fs is a library to read/write files
+const querystring = require('querystring');
 const mongoose = require('mongoose');
 const http = require('http');
 const express = require('express');
@@ -86,9 +87,12 @@ app.delete('/user/:id', async (req, res) => {
 // update column from mongodb
 app.put('/user/:id', async (req, res) => {
     // update data from mongodb
+    // escape character of req.body.name and req.body.age
+    const name = querystring.escape(req.body.name);
+    const age = querystring.escape(req.body.age); 
     const user = await User.updateOne({_id: req.params.id}, {
-        name: req.body.name,
-        age: req.body.age
+        name: name,
+        age: age
     }).exec();
     console.log(user);
     res.send(user);
