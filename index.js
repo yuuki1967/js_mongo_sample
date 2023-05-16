@@ -86,9 +86,12 @@ app.delete('/user/:id', async (req, res) => {
 // update column from mongodb
 app.put('/user/:id', async (req, res) => {
     // update data from mongodb
+    // escape character of req.body.name and req.body.age
+    const name = req.body.name.replace(/'/g, "\\'");
+    const age = req.body.age.replace(/'/g, "\\'"); 
     const user = await User.updateOne({_id: req.params.id}, {
-        name: req.body.name,
-        age: req.body.age
+        name: name,
+        age: age
     }).exec();
     console.log(user);
     res.send(user);
