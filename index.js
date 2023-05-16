@@ -62,10 +62,14 @@ app.get('/contact', (req, res) => {
 
 app.post('/user', (req, res) => {
     // add data to mongodb
+    // escape character of req.body.name and req.body.age
+    const name = querystring.escape(req.body.name);
+    const age = querystring.escape(req.body.age);
     const user = new User({
-        name: req.body.name,
-        age: req.body.age
+        name: name,
+        age: age
     });
+
     // save to mongodb
     user.save().then(item => {
         console.log('saved to mongodb');

@@ -40,3 +40,8 @@ Then 'command'+'return', you can see the candidate on the right side window on V
  // test for push /user
  'command' + 'return'
  show candidates on the right side window of Visual Studio Code
+
+ ## Copilot for PR
+1.  Create new branch
+2.  Modify a file
+3.  Create PR
