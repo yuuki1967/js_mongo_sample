@@ -15,6 +15,16 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const { kMaxLength } = require('buffer');
 const app = express();
+
+// set up rate limiter: maximum of five requests per minute
+const RateLimit = require('express-rate-limit');
+var limiter = RateLimit({
+    windowMs: 1*60*1000, // 1 minute
+    max: 5
+});
+// apply rate limiter to all requests
+app.use(limiter);
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 const server = http.createServer(app);
@@ -78,7 +88,11 @@ app.get('/user', async (req, res) => {
 // delete column from mongodb
 app.delete('/user/:id', async (req, res) => {
     // delete data from mongodb
-    const user = await User.deleteOne({_id: req.params.id}).exec();
+    // deletes user by id
+  // id is passed in as a parameter
+  // returns the deleted user
+
+  const user = await User.deleteOne({_id: req.params.id}).exec();
     console.log(user);
     res.send(user);
 }
@@ -94,6 +108,18 @@ app.put('/user/:id', async (req, res) => {
         name: name,
         age: age
     }).exec();
+    console.log(user);
+    res.send(user);
+}
+);
+
+// delete all column from mongodb
+app.delete('/user', async (req, res) => {
+    // delete data from mongodb
+    // deletes all users
+  // returns the deleted users
+
+  const user = await User.deleteMany().exec();
     console.log(user);
     res.send(user);
 }
