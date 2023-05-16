@@ -44,4 +44,4 @@ Then 'command'+'return', you can see the candidate on the right side window on V
  ## Copilot for PR
 1.  Create new branch
 2.  Modify a file
-3.  Create PR
+3.  Create PRs
