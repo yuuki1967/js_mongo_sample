@@ -26,7 +26,7 @@ $ curl -X DELETE  http://localhost:3000/user/6461b1e95d36e71194f90996  -H 'Conte
 {"acknowledged":true,"deletedCount":1}
 ```
 
-## Help you to generate shell script
+## Copilot demo for Helping you to generate shell script
 Using test.sh
 For instance
 ```
@@ -34,3 +34,9 @@ For instance
 
 ```
 Then 'command'+'return', you can see the candidate on the right side window on Visual Studio Code.
+
+## Copilot Demo for generating test with Mocha
+ - under the folder test, then modify test.js
+ // test for push /user
+ 'command' + 'return'
+ show candidates on the right side window of Visual Studio Code
