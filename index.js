@@ -64,12 +64,18 @@ app.post('/user', (req, res) => {
     // add data to mongodb
     // escape character of req.body.name and req.body.age
     const name = querystring.escape(req.body.name);
+    const phone = querystring.escape(req.body.phone);
+    const credit = querystring.escape(req.body.credit);
     const age = querystring.escape(req.body.age);
     const user = new User({
         name: name,
+        phone: phone,
+        credit: credit,
         age: age
     });
 
+    //Logger user
+    logger.info('User: ' + user.name + ' ' + user.phone + ' ' + user.credit + ' ' + user.age);
     // save to mongodb
     user.save().then(item => {
         console.log('saved to mongodb');
